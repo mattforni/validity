@@ -1,0 +1,7 @@
+Version 0.0.1: Initial release of validity. General functionality for ActiveRecord, though somewhat unstructured.
+Version 0.0.2: Not much changed.
+Version 1.0.0: Changed file structure and added testing.  Still only contains the basic ActiveRecord functionality
+    though now it can be found under lib/validity/record.rb.  Validity now requires configuration before use.  It
+    will eventually support RSpec testing, though at this time only supports Test::Unit.  This change breaks the API!
+    Now you must use Record.validates(record) in order to perform validations.  See docs to clean up any confusion.
+
