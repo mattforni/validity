@@ -4,4 +4,5 @@ Version 1.0.0: Changed file structure and added testing.  Still only contains th
     though now it can be found under lib/validity/record.rb.  Validity now requires configuration before use.  It
     will eventually support RSpec testing, though at this time only supports Test::Unit.  This change breaks the API!
     Now you must use Record.validates(record) in order to perform validations.  See docs to clean up any confusion.
+Version 1.0.1: Update docs and removing RSpec module as it's not supported ... yet.  Version 1.0.0 was yanked.
 

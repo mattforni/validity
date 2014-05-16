@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'validity'
-  s.version     = '1.0.0'
+  s.version     = '1.0.1'
   s.date        = Date.today
   s.summary     = "Validates ActiveRecord models"
   s.description = "The beginning of a validation library"

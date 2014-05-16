@@ -1,13 +1,12 @@
-# The Validity::Record module contains testing logic specific to ActiveRecord.
-# Example Usage:
-#   @user = Record.validates(User.new)
-#   @user.field_uniqueness(:email)
-#   @user.field_presence(:email)
-#
-# Author::    Matt Fornaciari (mailto:mattforni@gmail.com)
-# License::   MIT
-
 module Validity
+  # The Validity::Record module contains testing logic specific to ActiveRecord.
+  # Example Usage:
+  #   @user = Record.validates(User.new)
+  #   @user.field_uniqueness(:email)
+  #   @user.field_presence(:email)
+  #
+  # Author::    Matt Fornaciari (mailto:mattforni@gmail.com)
+  # License::   MIT
   class Record
     include Test::Unit::Assertions
     include Validity

@@ -81,9 +81,6 @@ module Validity
   module TestUnit
   end
 
-  module RSpec
-  end
-
   SUPPORTED = [TestUnit]
   UNSUPPORTED = "%{test_module} is not a supported test module, please specify one of #{SUPPORTED.join(', ')}"
 
