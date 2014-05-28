@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    validity (1.0.0)
+    validity (1.0.2)
       test-unit (~> 2)
 
 GEM

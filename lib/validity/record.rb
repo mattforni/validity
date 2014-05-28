@@ -8,7 +8,6 @@ module Validity
   # Author::    Matt Fornaciari (mailto:mattforni@gmail.com)
   # License::   MIT
   class Record
-    include Test::Unit::Assertions
     include Validity
 
     attr_reader :record
@@ -33,14 +32,7 @@ module Validity
     #   - +field+ the fields to check for has_many association
     #   - +targets+ the target associated records
     def belongs_to(field, target = nil)
-      clazz = @record.class
-      assert_respond_to @record, field, "#{clazz} cannot find associated #{field}"
-
-      one = @record.send(field)
-      assert_not_nil one, "#{clazz} does not have associated #{field}"
-      if target
-        assert_equal target, one, "#{field.to_s.capitalize} associated with this #{clazz.to_s.downcase} is not the target #{field}"
-      end
+      test_class.belongs_to @record, field, target
     end
 
     # Asserts that the record responds to the +delegated+ method and that
@@ -49,9 +41,7 @@ module Validity
     # * *Args*:
     #   - +field+ the fields to check for presence
     def delegates(delegated, delegated_to)
-      clazz = @record.class
-      assert_respond_to @record, delegated, "#{clazz} does not respond to #{delegated}"
-      assert_equal delegated_to.send(delegated), @record.send(delegated), "Delegated objects do not match"
+      test_class.delegates @record, delegated, delegated_to
     end
 
     # Asserts that the given +field+ must be present for the record to be valid.
@@ -59,12 +49,7 @@ module Validity
     # * *Args*:
     #   - +field+ the fields to check for presence
     def field_presence(field)
-      @record.send("#{field}=", nil)
-
-      clazz = @record.class
-      assert !@record.valid?, "#{clazz} is considered valid with nil #{field}"
-      assert !@record.save, "#{clazz} saved without #{field} field"
-      assert @record.errors[field].any?, "#{clazz} does not have an error on #{field}"
+      test_class.field_presence @record, field
     end
 
     # Asserts that the given +field+ must be unique for the record to be valid.
@@ -72,12 +57,7 @@ module Validity
     # * *Args*:
     #   - +field+ the fields to check for uniqueness
     def field_uniqueness(field)
-      dup = @record.dup
-
-      clazz = dup.class
-      assert !dup.valid?, "#{clazz} is considered valid with duplicate #{field}"
-      assert !dup.save, "#{clazz} saved with a duplicate #{field}"
-      assert dup.errors[field].any?, "#{clazz} does not have an error on #{field}"
+      test_class.field_uniqueness @record, field
     end
 
     # Asserts the record has a +has_many+ association as indicated by the provided
@@ -87,14 +67,7 @@ module Validity
     #   - +field+ the fields to check for has_many association
     #   - +targets+ the target associated records
     def has_many(field, targets = nil)
-      clazz = @record.class
-      assert_respond_to @record, field, "#{clazz} cannot find associated #{field}"
-
-      many = @record.send(field)
-      assert !(many.nil? || many.empty?), "#{clazz} does not have associated #{field}"
-      if targets
-        assert_equal targets.size, many.size, "#{clazz} does not have #{targets.size} associated #{field}"
-      end
+      test_class.has_many @record, field, targets
     end
 
     private
@@ -109,6 +82,14 @@ module Validity
     #   - a newly created Validity::Record object
     def initialize(record)
       self.record = record
+    end
+
+    # Returns the test class to be used based on the current configuration.
+    #
+    # * *Returns*:
+    #   - the test class to use based on the current configuration.
+    def test_class
+      @@test_framework::Record
     end
   end
 end

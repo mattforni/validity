@@ -5,4 +5,5 @@ Version 1.0.0: Changed file structure and added testing.  Still only contains th
     will eventually support RSpec testing, though at this time only supports Test::Unit.  This change breaks the API!
     Now you must use Record.validates(record) in order to perform validations.  See docs to clean up any confusion.
 Version 1.0.1: Update docs and removing RSpec module as it's not supported ... yet.  Version 1.0.0 was yanked.
+Version 1.0.2: Moving to the concept of a 'test_class' which will determine which test framework to use.
 
